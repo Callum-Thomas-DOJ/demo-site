@@ -1,0 +1,41 @@
+name: Deploy Angular Demo App
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout demo-site repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular app
+        run: |
+          npm run build -- --output-path=docs --base-href=/demo-app/
+
+      - name: Copy build to GitHub Pages repo
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git clone https://${{ secrets.GH_TOKEN }}@github.com/Callum-Thomas-DOJ/Callum-Thomas-DOJ.github.io.git gh-pages-repo
+          rm -rf gh-pages-repo/demo-app
+          mkdir -p gh-pages-repo/demo-app
+          cp -r docs/* gh-pages-repo/demo-app/
+
+          cd gh-pages-repo
+          git add .
+          git commit -m "Deploy Angular demo app from demo-site"
+          git push
