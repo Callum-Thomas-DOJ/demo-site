@@ -12,9 +12,10 @@ on:
 
 jobs:
   build-and-deploy:
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
     runs-on: ubuntu-latest
-
     steps:
+
       - name: Checkout demo-site repo
         uses: actions/checkout@v3
 
