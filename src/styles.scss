@@ -1,0 +1,87 @@
+// 1. Import functions first so we can manipulate colours, SVGs, functions, etc.
+@import "../node_modules/bootstrap/scss/functions";
+
+// 2. Override any default bootstrap variable here.
+$enable-shadows: true;
+
+$primary: #205D76;
+$secondary: #4AB6C0;
+$tertiary: #EA914D;
+$danger: #AE1E13;
+$info: #BCE2E7;
+
+
+// 3. Include remainder of required Bootstrap stylesheets, including the separate colour mode stylesheets.
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+
+// 4. Define custom variables here, which can cascade to the sub-themes.
+$cts-btn-bg: #BCE2E7;
+$cts-btn-border: #205D76;
+$cts-btn-color: #194658;
+$cts-btn-hover-bg: #C9DD6B;
+$cts-btn-hover-border: #205D76;
+$cts-btn-hover-color: #194658;
+$cts-btn-active-bg: #C9DD6B;
+$cts-btn-active-border: #205D76;
+$cts-btn-active-color: #194658;
+$cts-btn-disabled-bg: #BCE2E7;
+$cts-btn-disabled-border: #205D76;
+$cts-btn-disabled-color: #194658;
+
+$additional-colors: (
+  "tertiary": $tertiary
+);
+
+// 5. Override any default Bootstrap maps here.
+$theme-colors: map-merge($map1: $theme-colors, $map2: $additional-colors);
+
+// 6. Import the rest of required parts of Bootstrap.
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+// 7. Best Practice would be to import the Bootstrap components you need, rather than the entire library, but for speed of development, we will import the entire library.
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// 8. Import utilities API last, to generate classes based on the Sass map in utilities.scss.
+@import "../node_modules/bootstrap/scss/utilities/api";
+
+// 9. Add additional custom styles here.
+.btn-cts {
+  @include button-variant(
+    $cts-btn-bg,
+    $cts-btn-border,
+    $cts-btn-color,
+    $cts-btn-hover-bg,
+    $cts-btn-hover-border,
+    $cts-btn-hover-color,
+    $cts-btn-active-bg,
+    $cts-btn-active-border,
+    $cts-btn-active-color,
+    $cts-btn-disabled-bg,
+    $cts-btn-disabled-border,
+    $cts-btn-disabled-color 
+  );
+}
+
+.btn-cts.hover {
+  background-color: $cts-btn-hover-bg;
+  border-color: $cts-btn-hover-border;
+  color: $cts-btn-hover-color;
+}
+
+.btn-cts.focus-visible {
+  color: $cts-btn-hover-color;
+  background-color: $cts-btn-hover-bg;
+  border-color: $cts-btn-hover-border;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(31, 90, 114, 0.5);
+}
+
+.btn-cts.active {
+  color: $cts-btn-active-color;
+  background-color: $cts-btn-active-bg;
+  border-color: $cts-btn-active-border;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
